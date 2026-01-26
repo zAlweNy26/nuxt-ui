@@ -30,3 +30,8 @@ playgrounds/vue/auto-imports.d.ts
 playgrounds/vue/components.d.ts
 playgrounds/vue/tsconfig.app.tsbuildinfo
 playgrounds/vue/tsconfig.node.tsbuildinfo
+
+playgrounds/shadow/auto-imports.d.ts
+playgrounds/shadow/components.d.ts
+playgrounds/shadow/tsconfig.app.tsbuildinfo
+playgrounds/shadow/tsconfig.node.tsbuildinfo

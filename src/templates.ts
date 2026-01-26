@@ -197,7 +197,7 @@ export function getTemplates(options: ModuleOptions, uiConfig: Record<string, an
       return `${sources}
 
 @layer base {
-  body {
+  body, :host {
     @apply ${prefix}antialiased ${prefix}text-default ${prefix}bg-default ${prefix}scheme-light ${prefix}dark:scheme-dark;
   }
 }

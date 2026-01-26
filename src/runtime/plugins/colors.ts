@@ -20,7 +20,7 @@ function generateColor(key: string, shade: number) {
   return `--ui-${key}: var(--ui-color-${key}-${shade});`
 }
 
-export default defineNuxtPlugin(() => {
+export default defineNuxtPlugin((_nuxtApp) => {
   const appConfig = useAppConfig()
   const nuxtApp = useNuxtApp()
 
@@ -50,18 +50,26 @@ export default defineNuxtPlugin(() => {
     }]
   }
 
+  console.log('Global properties', nuxtApp.vueApp)
+
+  const customElement = _nuxtApp._isCustomElement as string
+
   // SPA mode
   if (import.meta.client && nuxtApp.isHydrating && !nuxtApp.payload.serverRendered) {
     const style = document.createElement('style')
-
     style.innerHTML = root.value
     style.setAttribute('data-nuxt-ui-colors', '')
-    document.head.appendChild(style)
 
-    headData.script = [{
-      innerHTML: 'document.head.removeChild(document.querySelector(\'[data-nuxt-ui-colors]\'))'
-    }]
+    console.log('Custom Element', customElement)
+
+    if (customElement) document.querySelectorAll(customElement as string).forEach(e => e.shadowRoot?.prepend(style))
+    else {
+      document.head.appendChild(style)
+      headData.script = [{
+        innerHTML: 'document.head.removeChild(document.querySelector(\'[data-nuxt-ui-colors]\'))'
+      }]
+    }
   }
 
-  useHead(headData)
+  if (!customElement) useHead(headData)
 })
